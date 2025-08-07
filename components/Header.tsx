@@ -44,7 +44,7 @@ export default function Header() {
       <nav className="px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Link href="/" className="text-xl sm:text-2xl font-bold text-indigo-600" style={{fontFamily: 'Pacifico, serif'}}>
-            VirtualPay
+            Somrat
           </Link>
           
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">

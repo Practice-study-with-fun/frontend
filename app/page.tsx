@@ -35,6 +35,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
+    
       
       {/* Hero Slider Section */}
       <section className="pt-16 sm:pt-20 pb-4 sm:pb-8">

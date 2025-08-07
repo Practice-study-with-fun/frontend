@@ -1,6 +1,6 @@
 
 'use client';
-
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -21,7 +21,7 @@ export default function Header() {
     const checkAuthStatus = () => {
       const userToken = localStorage.getItem('userToken');
       const isAuthenticated = localStorage.getItem('isAuthenticated');
-      setIsLoggedIn(userToken && isAuthenticated === 'true');
+      setIsLoggedIn(!!userToken && isAuthenticated === 'true');
     };
     
     checkAuthStatus();
@@ -59,19 +59,16 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
-            {isLoggedIn ? (
-              <button 
-                onClick={handleLogout}
-                className="bg-red-500 text-white px-4 xl:px-6 py-2 rounded-full hover:bg-red-600 transition-colors whitespace-nowrap cursor-pointer text-sm xl:text-base"
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <Link href="/signin" className="text-gray-700 hover:text-indigo-600 transition-colors whitespace-nowrap text-sm xl:text-base">Sign In</Link>
-                <Link href="/signup" className="bg-indigo-600 text-white px-4 xl:px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors whitespace-nowrap cursor-pointer text-sm xl:text-base">Sign Up</Link>
-              </>
-            )}
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton>
+                <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">Sign Up</button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            
           </div>
 
           <button 

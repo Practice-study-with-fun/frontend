@@ -1,6 +1,6 @@
 
 'use client';
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignInButton, SignOutButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -30,12 +30,7 @@ export default function Header() {
     return () => window.removeEventListener('storage', checkAuthStatus);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userEmail');
-    setIsLoggedIn(false);
-  };
+  
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -67,6 +62,7 @@ export default function Header() {
             </SignedOut>
             <SignedIn>
               <UserButton />
+              <p>Welcome! Go to your <a href="/dashboard">Dashboard</a></p>
             </SignedIn>
             
           </div>
@@ -94,16 +90,24 @@ export default function Header() {
               )}
               <div className="flex flex-col space-y-3 pt-3 border-t border-gray-200">
                 {isLoggedIn ? (
-                  <button 
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors text-center whitespace-nowrap cursor-pointer"
-                  >
-                    Logout
-                  </button>
+                  <SignOutButton>
+                      <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors text-center whitespace-nowrap cursor-pointer">
+                        Sign Out
+                      </button>
+                    </SignOutButton>
                 ) : (
                   <>
-                    <Link href="/signin" className="text-gray-700 hover:text-indigo-600 transition-colors py-2 text-center">Sign In</Link>
-                    <Link href="/signup" className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">Sign Up</Link>
+                    <SignInButton>
+                      <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+                        Sign In
+                      </button>
+                    </SignInButton>
+
+                    <SignUpButton>
+                      <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+                        Sign Up
+                      </button>
+                    </SignUpButton>
                   </>
                 )}
               </div>

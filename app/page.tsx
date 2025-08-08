@@ -134,7 +134,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
               <Link href="/signup" className="bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap cursor-pointer">
-                Start Free Trial
+                Get Started
               </Link>
               <Link href="/contact" className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors whitespace-nowrap cursor-pointer">
                 Contact Sales

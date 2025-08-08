@@ -1,16 +1,37 @@
 
 'use client';
+import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs';
 
+
+
+import { useAuth } from "@clerk/nextjs";
 import Header from '@/components/Header';
 import ScrollAnimation from '@/components/ScrollAnimation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 // start clerk token transfer
 
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [showNewCardModal, setShowNewCardModal] = useState(false);
+  const { getToken } = useAuth();
+  const [data, setData] = useState(null);
 
+    useEffect(() => {
+    async function fetchData() {
+      const token = await getToken();
+      const res = await fetch("http://localhost:8000/owner/api/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const json = await res.json();
+      setData(json);
+    }
+
+    fetchData();
+  }, [getToken]);
 
   const virtualCards = [
     {
@@ -51,8 +72,13 @@ export default function Dashboard() {
   ];
 
   return (
+    <>
+
+    <SignedIn>
+
     <div className="min-h-screen bg-gray-50">
       <Header />
+      <pre>{JSON.stringify(data)}</pre>
       
       
       <div className="pt-20 sm:pt-24 pb-8 sm:pb-12">
@@ -413,5 +439,28 @@ export default function Dashboard() {
         </div>
       )}
     </div>
+
+    </SignedIn>
+
+    <SignedOut>
+      <Header />
+      <h1 className='text-lg font-semibold text-bg-indigo-600,text-size-600,mt-50'>Please sign in to access your dashboard.</h1>
+      <SignInButton>
+        <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+          Sign In
+        </button>
+      </SignInButton>
+      <SignUpButton>
+        <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+          Sign Up
+        </button>
+      </SignUpButton>
+      
+    </SignedOut>
+    </>
   );
 }
+
+
+
+

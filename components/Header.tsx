@@ -1,6 +1,6 @@
 
 'use client';
-import { SignInButton, SignOutButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignInButton,  SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -49,22 +49,26 @@ export default function Header() {
             <Link href="/about" className="text-gray-700 hover:text-indigo-600 transition-colors text-sm xl:text-base">About</Link>
             <Link href="/contact" className="text-gray-700 hover:text-indigo-600 transition-colors text-sm xl:text-base">Contact</Link>
             {isLoggedIn && (
-              <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 transition-colors text-sm xl:text-base">Dashboard</Link>
+              <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 transition-colors text-sm xl:text-base">Dashboard <UserButton /></Link>
             )}
           </div>
 
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
             <SignedOut>
-              <SignInButton />
+              <SignInButton>
+                <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">Sign In</button>
+              </SignInButton>
+
               <SignUpButton>
-                <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">Sign Up</button>
+                <button className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition-colors text-center whitespace-nowrap cursor-pointer">Sign Up</button>
               </SignUpButton>
             </SignedOut>
             <SignedIn>
               <UserButton />
-              <p>Welcome! Go to your <a href="/dashboard">Dashboard</a></p>
+              <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 transition-colors text-sm xl:text-base">
+                Dashboard
+              </Link>
             </SignedIn>
-            
           </div>
 
           <button 
@@ -85,32 +89,28 @@ export default function Header() {
               <Link href="/products" className="text-gray-700 hover:text-indigo-600 transition-colors py-2">Products</Link>
               <Link href="/about" className="text-gray-700 hover:text-indigo-600 transition-colors py-2">About</Link>
               <Link href="/contact" className="text-gray-700 hover:text-indigo-600 transition-colors py-2">Contact</Link>
-              {isLoggedIn && (
-                <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 transition-colors py-2">Dashboard</Link>
-              )}
-              <div className="flex flex-col space-y-3 pt-3 border-t border-gray-200">
-                {isLoggedIn ? (
-                  <SignOutButton>
-                      <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors text-center whitespace-nowrap cursor-pointer">
-                        Sign Out
-                      </button>
-                    </SignOutButton>
-                ) : (
-                  <>
-                    <SignInButton>
-                      <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
-                        Sign In
-                      </button>
-                    </SignInButton>
+              <SignedOut>
+                <SignInButton>
+                  <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+                    Sign In
+                  </button>
+                  </SignInButton>
+                  <SignUpButton>
+                    <button className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
+                </SignedOut>
 
-                    <SignUpButton>
-                      <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
-                        Sign Up
-                      </button>
-                    </SignUpButton>
-                  </>
-                )}
-              </div>
+                <SignedIn>
+                  <UserButton />
+                  <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 transition-colors py-2">
+                    <button className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors text-center whitespace-nowrap cursor-pointer">
+                      Dashboard
+                    </button>
+                  </Link>
+                  
+                </SignedIn>
             </div>
           </div>
         )}

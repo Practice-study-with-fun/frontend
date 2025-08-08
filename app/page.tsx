@@ -1,5 +1,5 @@
 
-'use client';
+
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -33,10 +33,14 @@ export default function Home() {
   ];
 
   return (
+    <>
+    
+
     <div className="min-h-screen">
       <Header />
-    
+
       
+
       {/* Hero Slider Section */}
       <section className="pt-16 sm:pt-20 pb-4 sm:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -51,6 +55,9 @@ export default function Home() {
           </ScrollAnimation>
         </div>
       </section>
+
+
+      
 
       {/* Features Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50">
@@ -146,5 +153,6 @@ export default function Home() {
 
       <Footer />
     </div>
+    </>
   );
 }
